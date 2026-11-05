@@ -2,7 +2,11 @@
 
 from fastapi import FastAPI
 
-app = FastAPI(title="Nodus API", version="0.1.0")
+from app.config import get_settings
+
+settings = get_settings()
+
+app = FastAPI(title=settings.app_name, version=settings.app_version)
 
 
 @app.get("/health")
