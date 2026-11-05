@@ -1,0 +1,27 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.6
+    hooks:
+      - id: ruff
+        name: ruff (check)
+        args: [--fix, --config, backend/pyproject.toml]
+        files: ^backend/
+      - id: ruff-format
+        name: ruff (format)
+        args: [--config, backend/pyproject.toml]
+        files: ^backend/
+
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint (web)
+        entry: npm --prefix web run lint
+        language: system
+        files: ^web/.*\.(js|jsx|ts|tsx|mjs)$
+        pass_filenames: false
+      - id: prettier
+        name: prettier (web)
+        entry: npm --prefix web run format:check
+        language: system
+        files: ^web/
+        pass_filenames: false
